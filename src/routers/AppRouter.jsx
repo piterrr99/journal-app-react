@@ -10,9 +10,9 @@ export const AppRouter = () => {
     <BrowserRouter>
     
         <Routes>
-            <Route path='/auth/*' element={<AuthRouter />} />
-            <Route path='/' element={<JournalScreen />} />
-            <Route path='*' element={ <Navigate to='/auth/login' /> } />
+            <Route path='/journal-app-react/auth/*' element={<AuthRouter />} />
+            <Route path='/journal-app-react' element={<JournalScreen />} />
+            <Route path='/journal-app-react/*' element={ <Navigate to='/journal-app-react/auth/login' /> } />
         </Routes>
     
     
