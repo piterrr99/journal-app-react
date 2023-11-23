@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import { Google } from '@mui/icons-material'
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 import Container from '@mui/material/Container';
@@ -9,8 +8,8 @@ import { Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import { login } from '../../store/auth/authSlice';
-import { debuggedRedirectResult, startGoogleLogin, startLoginEmailPassword } from '../../firebase/providers';
-import { useEffect } from 'react';
+import {  startLoginEmailPassword } from '../../firebase/providers';
+
 
 
 export const LoginScreen = () => {
@@ -21,20 +20,8 @@ export const LoginScreen = () => {
   });
 
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-    
-  //   dispatch(debuggedRedirectResult())
   
-  // }, [])
-  
-
-
   const { email, password } = formValues;
-
-  const handleGoogleSignIn = ()=>{
-    startGoogleLogin()
-  }
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -83,26 +70,12 @@ export const LoginScreen = () => {
             onChange={handleInputChange}
           />
           <Button
+            fullWidth
             type='submit'
             variant='contained'
-            sx={{ mt: 3, mb: 2, mr: '2%', bgcolor: 'primary.dark', width: '48%' }}
+            sx={{ mt: 3, mb: 2,  bgcolor: 'primary.dark' }}
           >
             Login
-          </Button>
-
-          <Button
-            onClick={handleGoogleSignIn}
-            variant='contained'
-            sx={{ mt: 3, mb: 2, ml: '2%', bgcolor: 'primary.dark', width: '48%' }}
-          >
-            <Google />
-            <Typography
-              variant='inherit'
-              sx={{ ml: 1 }}
-            >
-              GOOGLE
-            </Typography>
-
           </Button>
 
           <Box sx={{
