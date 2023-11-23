@@ -97,7 +97,7 @@ export const RegisterScreen = () => {
                 
                   <Typography variant='subtitle2' sx={{ mb: 2 }} >
                     {'¿Ya tienes cuenta? '} 
-                    <Link to='/auth/login'>Ingresar</Link>
+                    <Link to='/journal-app-react/auth/login'>Ingresar</Link>
                   </Typography>
                 
               </Grid>
