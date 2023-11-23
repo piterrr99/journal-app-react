@@ -110,7 +110,7 @@ export const LoginScreen = () => {
             justifyContent: 'flex-end',
             mb: 2
           }} >
-            <Link to='/journal-app-react/auth/register'  >
+            <Link to='/auth/register'  >
               <Typography variant='subtitle2' >
                 Crear una cuenta
               </Typography>

@@ -22,7 +22,7 @@ export const AuthRouter = () => {
                 <Routes>
                     <Route path = 'login' element={ <LoginScreen /> } />
                     <Route path='register' element={ <RegisterScreen /> } />
-                    <Route path='*' element={ <Navigate to='/journal-app-react/auth/login' /> } />
+                    <Route path='*' element={ <Navigate to='/auth/login' /> } />
                 </Routes>
             </Box>
                     

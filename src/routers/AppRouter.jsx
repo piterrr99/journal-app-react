@@ -7,12 +7,12 @@ import { JournalScreen } from '../components/journal/JournalScreen';
 export const AppRouter = () => {
   return (
     
-    <BrowserRouter>
+    <BrowserRouter basename= {import.meta.env.DEV ? '/' : '/journal-app-react'}>
     
         <Routes>
-            <Route path='/journal-app-react/auth/*' element={<AuthRouter />} />
-            <Route path='/journal-app-react' element={<JournalScreen />} />
-            <Route path='/journal-app-react/*' element={ <Navigate to='/journal-app-react/auth/login' /> } />
+            <Route path='/auth/*' element={<AuthRouter />} />
+            <Route path='/' element={<JournalScreen />} />
+            <Route path='/*' element={ <Navigate to='/auth/login' /> } />
         </Routes>
     
     
