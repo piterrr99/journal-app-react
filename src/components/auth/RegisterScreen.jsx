@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useForm } from '../../hooks/useForm';
+import { useState } from 'react';
+
 
 
 export const RegisterScreen = () => {
@@ -15,17 +17,35 @@ export const RegisterScreen = () => {
     fullName: 'Hernando',
     email: 'nando@gmail.com',
     password: '123456'
-  }
+  };
 
-  const [ formValues, handleInputChange ] = useForm( initialValues )
-  const { fullName, email, password } = formValues
+  
+
+  const formValidations = {
+    fullName: [(value)=>value.length>=1, 'Debe llenar este campo'],
+    email: [(value)=>value.includes('@'), 'Debes introducir un correo'],
+    password: [(value)=>value.length>=6, 'La contraseña debe tener al menos 6 caracteres']
+  };
+
+  const [formSubmitted, setFormSubmitted] = useState(false)
+
+  const {
+    formState, fullName, email, password, handleInputChange, 
+    isFormValid, fullNameValid, emailValid, passwordValid 
+  }  = useForm( initialValues, formValidations )
+
 
 
   const handleSubmit = (event) => {
     
     event.preventDefault();
+    setFormSubmitted(true);
+
+    if(isFormValid){
     console.log({ fullName, email, password });
+    }
   };
+
 
   return (
 
@@ -48,7 +68,8 @@ export const RegisterScreen = () => {
                 <TextField
                   autoComplete="given-name"
                   name="fullName"
-                  required
+                  error={!!fullNameValid && formSubmitted }
+                  helperText={!!fullNameValid && formSubmitted && 'Debe llenar este campo'}
                   fullWidth
                   id="fullName"
                   label="Nombre completo"
@@ -60,24 +81,26 @@ export const RegisterScreen = () => {
               
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   id="email"
                   label="Correo"
                   name="email"
                   autoComplete="email"
+                  error={!!emailValid && formSubmitted}
+                  helperText={!!emailValid && formSubmitted && 'Debe introducir una direccion de correo'}
                   onChange={handleInputChange}
                   value={email}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   name="password"
                   label="Contraseña"
                   type="password"
                   id="password"
+                  error={!!passwordValid && formSubmitted}
+                  helperText={!!passwordValid && formSubmitted && 'La contraseña debe tener al menos 6 caracteres'}
                   onChange={handleInputChange}
                   value={password}
                   autoComplete="new-password"
