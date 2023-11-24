@@ -1,19 +1,45 @@
-import { GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
+import { AuthErrorCodes, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import { FirebaseAuth } from './config';
-import authSlice, { login } from '../store/auth/authSlice';
+import authSlice, { checkingCredentials, doneCheckingButErrorsOcurred, login } from '../store/auth/authSlice';
 
-const googleProvider = new GoogleAuthProvider
+
+export const startRegisterWithNameEmailPassword = (name, email, password)=>{
+
+    return async(dispatch)=>{
+        try {
+            dispatch(checkingCredentials())
+            const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
+            const {user} = resp;
+            
+            await updateProfile(user, {displayName: name})
+   
+            dispatch(
+                login({email: user.email, displayName: user.displayName, uid: user.uid})
+            )
+            
+        } catch (errorMessage) {
+            console.log(errorMessage.code)
+            dispatch(doneCheckingButErrorsOcurred())
+        }
+    }
+}
 
 export const startLoginEmailPassword = (email, password)=>{
 
-    return (dispatch) =>{
+    return async(dispatch) =>{
+        try {
+            dispatch(checkingCredentials())
 
-        setTimeout(() => {
+            const {user} = await signInWithEmailAndPassword(FirebaseAuth, email, password);
+            
+            dispatch(
+                login({email: user.email, displayName: user.displayName, uid: user.uid})
+            );        
 
-            dispatch( login({ email: 'pedro@gmail.com', displayName: 'Pedro' }) )
-
-        }, 3500);
+        } catch (error) {
+            console.log(error.code)
+            dispatch(doneCheckingButErrorsOcurred())
+        }
     }
-
 };

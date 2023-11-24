@@ -8,7 +8,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useForm } from '../../hooks/useForm';
 import { useState } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
+import { startRegisterWithNameEmailPassword } from '../../firebase/providers';
 
 
 export const RegisterScreen = () => {
@@ -19,7 +21,7 @@ export const RegisterScreen = () => {
     password: '123456'
   };
 
-  
+  const dispatch = useDispatch()
 
   const formValidations = {
     fullName: [(value)=>value.length>=1, 'Debe llenar este campo'],
@@ -34,7 +36,8 @@ export const RegisterScreen = () => {
     isFormValid, fullNameValid, emailValid, passwordValid 
   }  = useForm( initialValues, formValidations )
 
-
+  const {status, errorMessage} = useSelector(state => state.auth)
+  const isCheckingAuthentication = useMemo(()=> status === 'checking', [status])
 
   const handleSubmit = (event) => {
     
@@ -42,7 +45,8 @@ export const RegisterScreen = () => {
     setFormSubmitted(true);
 
     if(isFormValid){
-    console.log({ fullName, email, password });
+      
+      dispatch(startRegisterWithNameEmailPassword(fullName, email, password));
     }
   };
 
@@ -109,6 +113,7 @@ export const RegisterScreen = () => {
             </Grid>
             <Button
               type="submit"
+              disabled={isCheckingAuthentication}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

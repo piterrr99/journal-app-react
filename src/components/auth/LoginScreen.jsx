@@ -5,27 +5,33 @@ import { Link } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
+
 import { useForm } from '../../hooks/useForm';
-import { login } from '../../store/auth/authSlice';
 import {  startLoginEmailPassword } from '../../firebase/providers';
+
 
 
 
 export const LoginScreen = () => {
 
-  const [ formValues, handleInputChange ] = useForm( {
+  const { formState, handleInputChange } = useForm( {
     email: 'nando@gmail.com',
-    password: '123'
+    password: '123456'
   });
 
   const dispatch = useDispatch();
+
+  const {status, errorMessage} = useSelector(state => state.auth)
+  const isCheckingAuthentication = useMemo(()=> status === 'checking', [status])
+
   
-  const { email, password } = formValues;
+  const { email, password } = formState;
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch( startLoginEmailPassword( 'email', 'password') );
+    dispatch( startLoginEmailPassword( email, password) );
   };
   
 
@@ -72,6 +78,7 @@ export const LoginScreen = () => {
           <Button
             fullWidth
             type='submit'
+            disabled={isCheckingAuthentication}
             variant='contained'
             sx={{ mt: 3, mb: 2,  bgcolor: 'primary.dark' }}
           >
