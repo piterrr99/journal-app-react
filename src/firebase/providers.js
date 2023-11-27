@@ -1,7 +1,7 @@
-import { AuthErrorCodes, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { AuthErrorCodes, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 
 import { FirebaseAuth } from './config';
-import authSlice, { checkingCredentials, doneCheckingButErrorsOcurred, login } from '../store/auth/authSlice';
+import authSlice, { checkingCredentials, doneCheckingButErrorsOcurred, login, logout } from '../store/auth/authSlice';
 
 
 export const startRegisterWithNameEmailPassword = (name, email, password)=>{
@@ -43,3 +43,19 @@ export const startLoginEmailPassword = (email, password)=>{
         }
     }
 };
+
+
+export const startLogout = () =>{
+    return async(dispatch) => {
+        try {
+            await signOut(FirebaseAuth);
+            dispatch(
+                logout()
+            );
+            
+        } catch (error) {
+            console.log(`ha ocurrido un error: ${error}`)
+        }
+
+    }
+}
