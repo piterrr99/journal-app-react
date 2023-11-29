@@ -11,6 +11,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { FirebaseAuth } from '../firebase/config';
 import { login } from '../store/auth/authSlice';
 import { useState } from 'react';
+import PrivateRoutes from './PrivateRoutes';
+import { PublicRoutes } from './PublicRoutes';
+import { startLoadingNotes } from '../store/notes/thunks';
 
 export const AppRouter = () => {
 
@@ -19,13 +22,16 @@ export const AppRouter = () => {
 
 	useEffect(() => {
 		
-		onAuthStateChanged(FirebaseAuth, (user)=>{
+		onAuthStateChanged(FirebaseAuth, async(user)=>{
 			if (user?.uid){
 				dispatch(
 					login( {displayName: user.displayName, email: user.email, uid: user.uid} )
-					
-				)
-			}
+				);
+
+				dispatch(
+					startLoadingNotes( user.uid )
+				);	
+			};
 
 			setChecking(false);
 		})
@@ -44,9 +50,28 @@ export const AppRouter = () => {
     <BrowserRouter basename= {import.meta.env.DEV ? '/' : '/journal-app-react'}>
     
         <Routes>
-            <Route path='/auth/*' element={<AuthRouter />} />
-            <Route path='/' element={<JournalScreen />} />
-            <Route path='/*' element={ <Navigate to='/auth/login' /> } />
+			
+            <Route path='/' element={
+				<PrivateRoutes>
+					<JournalScreen />
+				</PrivateRoutes>
+				}
+			/>
+
+            <Route path='/auth/*' element={
+				<PublicRoutes>
+					<AuthRouter />
+				</PublicRoutes>
+				} 
+			/>
+            
+			<Route path='/*' element={ 
+				<PublicRoutes>
+					<Navigate to='/auth/login' /> 
+				</PublicRoutes>
+				} 
+			/>
+			
         </Routes>
     
     

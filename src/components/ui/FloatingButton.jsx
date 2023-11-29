@@ -1,9 +1,22 @@
 import { Button, Typography } from '@mui/material'
 import React from 'react'
+import { useDispatch } from 'react-redux';
+
+import { startNewNote } from '../../store/notes/thunks';
+
 
 export const FloatingButton = () => {
+  
+  const dispatch = useDispatch() 
+
+  const handleAddNewNote = ()=>{
+    dispatch(startNewNote())
+  }
+  
   return (
-    <Button sx={[{ 
+    <Button
+      onClick={handleAddNewNote} 
+      sx={[{ 
         position: 'fixed',
         bgcolor: 'error.main',
         borderRadius: 20,

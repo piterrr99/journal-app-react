@@ -11,7 +11,7 @@ const drawerWidth = 300;
 export const JournalLayout = ( {children} ) => {
   
   return (
-    <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
         <CssBaseline />
         <Navbar drawerWidth={drawerWidth} />
         <Sidebar drawerWidth={drawerWidth} />

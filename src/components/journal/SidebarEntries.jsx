@@ -1,16 +1,13 @@
 import { Divider, List, Toolbar, Typography } from '@mui/material';
 import React from 'react'
 import { SidebarEntry } from './SidebarEntry';
+import { useSelector } from 'react-redux';
 
 export const SidebarEntries = () => {
 
-    const entries = [{ 
-                        event: 'Enero', 
-                        description: 'lorem ipsum una mona tremenda talla' 
-                    }, { 
-                        event: 'Febrero', 
-                        description: 'lorem ipsum una mona tremenda talla' 
-                    }];
+    const { displayName } = useSelector( state => state.auth )
+
+   const {notes} = useSelector( state=> state.notes )
 
 
     return (
@@ -18,14 +15,20 @@ export const SidebarEntries = () => {
         <div>
             <Toolbar>
                 <Typography variant='h6'>
-                    Pedro Hourrutiner
+                    {displayName}
                 </Typography>
             </Toolbar>
             <Divider />
             <List>
-                {entries.map(({ event, description }) => (
-                        <SidebarEntry key={event} event={event} description={description} />
-                    ))}
+                {
+                    notes.map( note=> (
+                       
+                        <SidebarEntry 
+                            key={note.id}
+                            {...note}
+                        />
+                    ))
+                }
             </List>
 
         </div>

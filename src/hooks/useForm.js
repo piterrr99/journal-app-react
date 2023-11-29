@@ -26,8 +26,8 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
 
 
 
-    const reset = ()=>{
-        setFormState(initialForm);
+    const reset = ( newFormState = initialForm )=>{
+        setFormState(newFormState);
     };
 
     const handleInputChange = ({target})=>{

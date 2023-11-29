@@ -16,9 +16,9 @@ import { startRegisterWithNameEmailPassword } from '../../firebase/providers';
 export const RegisterScreen = () => {
 
   const initialValues = {
-    fullName: 'Hernando',
-    email: 'nando@gmail.com',
-    password: '123456'
+    fullName: '',
+    email: '',
+    password: ''
   };
 
   const dispatch = useDispatch()

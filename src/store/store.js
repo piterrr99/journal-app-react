@@ -9,9 +9,11 @@ import { configureStore } from '@reduxjs/toolkit';
 // export const store = configureStore({ reducer: rootReducer })
 
 import auth from './auth/authSlice';
+import notes from './notes/notesSlice'
 
 const rootReducer = {
-    auth 
+    auth,
+    notes 
 };
 
 export const store = configureStore({ reducer: rootReducer });
