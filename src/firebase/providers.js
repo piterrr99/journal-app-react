@@ -1,8 +1,8 @@
-import { AuthErrorCodes, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 
 
 import { FirebaseAuth } from './config';
-import authSlice, { checkingCredentials, doneCheckingButErrorsOcurred, login, logout } from '../store/auth/authSlice';
+import { checkingCredentials, doneCheckingButErrorsOcurred, login, logout } from '../store/auth/authSlice';
 import Swal from 'sweetalert2';
 import { logoutNotes } from '../store/notes/notesSlice';
 

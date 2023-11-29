@@ -26,7 +26,6 @@ export const NotesAppBar = ( {date, note} ) => {
     }
 
     const handleFileChange =({target})=>{
-        console.log(target.files)
         dispatch(startUploadingImage(target.files))
     }
     
