@@ -12,7 +12,7 @@ moment.locale('es');
 
 export const NotesAppBar = ( {date, note} ) => {
   
-    const noteDate = moment(date).format('MMMM Do YYYY');
+    const noteDate = moment(date).format('LL');
 
     const dispatch = useDispatch();
 
