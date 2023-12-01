@@ -6,6 +6,9 @@ import moment from 'moment/moment';
 import { useDispatch } from 'react-redux';
 import { startSaveNotes, startUploadingImage } from '../../store/notes/thunks';
 
+import 'moment/locale/es';
+
+moment.locale('es');
 
 export const NotesAppBar = ( {date, note} ) => {
   
