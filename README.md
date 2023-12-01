@@ -1,8 +1,15 @@
-# React + Vite
+## Preview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Screenshot JournalApp](https://github.com/piterrr99/journal-app-react/assets/133697605/ed789e49-5121-49e3-930e-e036708442fe)
 
-Currently, two official plugins are available:
+## About the app
+This is a web app in which different users can log in and save notes in their profile. Said notes may contain a title, description and some images attached to them.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Techs used
+* React & Vite
+* Firebase
+* Cloudinary
+
+
+
+
